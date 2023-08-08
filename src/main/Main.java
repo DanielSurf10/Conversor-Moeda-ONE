@@ -1,6 +1,7 @@
 package main;
 
 import Dominio.Conversores.ConversorMoeda;
+import Dominio.Conversores.ConversorTemperatura;
 import Dominio.ConversoresEnum;
 
 import java.util.Scanner;
@@ -41,8 +42,21 @@ public class Main {
         };
     }
 
+    public static boolean continuar(Scanner ler) {
+        int opcao = ler.nextInt();
+
+        while (!(opcao == 0 || opcao == 1)) {
+            System.out.println("Opção inválida");
+            System.out.print("Digite novamente: ");
+            opcao = ler.nextInt();
+        }
+
+        return opcao == 1;
+    }
+
     public static void main(String[] args) {
         Scanner ler = new Scanner(System.in);
+        boolean continuar = true;
 
         cabecalho();
         menu();
@@ -50,9 +64,16 @@ public class Main {
         ConversoresEnum conversor = conversor(ler);
         System.out.println();
 
-        if (conversor == ConversoresEnum.MOEDA) {
-            ConversorMoeda.conversor();
-        }
+        while (continuar) {
 
+            if (conversor == ConversoresEnum.MOEDA) {
+                ConversorMoeda.conversor();
+            } else if (conversor == ConversoresEnum.TEMPERATURA) {
+                ConversorTemperatura.conversor();
+            }
+
+            System.out.print("Dejesa continuar no conversor? [ 0 (Não) / 1 (Sim) ]: ");
+            continuar = continuar(ler);
+        }
     }
 }

@@ -1,44 +1,40 @@
 package Dominio.Conversores;
 
 import Dominio.Moedas;
+import Dominio.Temperaturas;
 
 import java.util.Scanner;
 
-public class ConversorMoeda {
-
+public class ConversorTemperatura {
     public static void cabecalho() {
         System.out.println("------------------------------");
         System.out.println("--------- Conversor ----------");
         System.out.println("------------- de -------------");
-        System.out.println("----------- moeda ------------");
+        System.out.println("-------- temperatura ---------");
         System.out.println("------------------------------");
     }
 
-    public static void moedas() {
-        System.out.println("Dolar           [ 1 ]");
-        System.out.println("Euro            [ 2 ]");
-        System.out.println("Yuan Chinês     [ 3 ]");
-        System.out.println("Iene Japones    [ 4 ]");
-        System.out.println("Real            [ 5 ]");
+    public static void imprimirOpcoes() {
+        System.out.println("Grau celsius    [ 1 ]");
+        System.out.println("Kelvin          [ 2 ]");
+        System.out.println("fahrenheit      [ 3 ]");
         System.out.println();
         System.out.print("Digite a sua opção: ");
     }
 
-    public static Moedas opcoesMoedas(Scanner ler) {
+    public static Temperaturas receberOpcao(Scanner ler) {
         int opcao = ler.nextInt();
 
-        while (!(opcao > 0 && opcao < 6)) {
+        while (!(opcao > 0 && opcao < 4)) {
             System.out.println("Opção inválida");
             System.out.print("Digite novamente: ");
             opcao = ler.nextInt();
         }
 
         return switch (opcao) {
-            case 1 -> Moedas.DOLAR;
-            case 2 -> Moedas.EURO;
-            case 3 -> Moedas.YUAN;
-            case 4 -> Moedas.IENE;
-            case 5 -> Moedas.REAL;
+            case 1 -> Temperaturas.GRAU_CELSIUS;
+            case 2 -> Temperaturas.KELVIN;
+            case 3 -> Temperaturas.FAHRENHEIT;
             default -> null;
         };
     }
@@ -63,21 +59,21 @@ public class ConversorMoeda {
             cabecalho();
             System.out.println();
 
-            System.out.println("Moeda a ser convertida: ");
-            moedas();
-            Moedas moeda1 = opcoesMoedas(ler);
+            System.out.println("Temperatura a ser convertida: ");
+            imprimirOpcoes();
+            Temperaturas temperatura1 = receberOpcao(ler);
             System.out.print("Quanto: ");
             double quantidadeASerConvertida = ler.nextDouble();
 
-            System.out.print("Para qual moeda: ");
-            Moedas moeda2 = opcoesMoedas(ler);
+            System.out.print("Para qual temperatura: ");
+            Temperaturas temperatura2 = receberOpcao(ler);
 
-            // Math.round(moeda1.converter(moeda2, quantidadeASerConvertida) * 100d) / 100;
-            double quantidadeResultado = (double) Math.round(moeda1.converter(moeda2, quantidadeASerConvertida) * 100.0) / 100;
-            System.out.printf("%f %s -> %f %s", quantidadeASerConvertida, moeda1.name().toLowerCase(),
-                    quantidadeResultado, moeda2.name().toLowerCase());
+            double quantidadeResultado = (double) Math.round(temperatura1.converter(temperatura2, quantidadeASerConvertida) * 100.0) / 100;
 
-            System.out.print("\n\nDejesa continuar no conversor de moeda? [ 0 (Não) / 1 (Sim) ]: ");
+            System.out.printf("%f %s -> %f %s", quantidadeASerConvertida, temperatura1.name().toLowerCase(),
+                    quantidadeResultado, temperatura2.name().toLowerCase());
+
+            System.out.print("\n\nDejesa continuar no conversor de temperatura? [ 0 (Não) / 1 (Sim) ]: ");
             continuar = continuar(ler);
             System.out.println();
         }
