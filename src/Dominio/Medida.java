@@ -1,6 +1,6 @@
 package Dominio;
 
-public abstract class ConversorMedida {
+public abstract class Medida {
     protected String nome;
     protected double valor;
 
@@ -12,5 +12,7 @@ public abstract class ConversorMedida {
         return valor;
     }
 
-    public abstract double converter(ConversorMedida conversorMedida, double quantidade);
+    public double converter(Medida medida, double quantidade) {
+        return (quantidade * medida.getValor()) / valor;
+    }
 }

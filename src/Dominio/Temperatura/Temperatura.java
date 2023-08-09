@@ -1,28 +1,28 @@
 package Dominio.Temperatura;
 
-import Dominio.ConversorMedida;
+import Dominio.Medida;
 
-public class Temperatura extends ConversorMedida {
+public class Temperatura extends Medida {
 
-    Temperatura(String nome, double valor) {
+    public Temperatura(String nome, double valor) {
         this.nome = nome;
         this.valor = valor;
     }
 
     @Override
-    public double converter(ConversorMedida conversorMedida, double quantidade) {
-        if (this.nome.equals("Grau Celsius") && conversorMedida.getNome().equals("Kelvin")) {
-            return quantidade + conversorMedida.getValor();
-        } else if (this.nome.equals("Kelvin") && conversorMedida.getNome().equals("Grau Celsius")) {
+    public double converter(Medida medida, double quantidade) {
+        if (this.nome.equals("Grau Celsius") && medida.getNome().equals("Kelvin")) {
+            return quantidade + medida.getValor();
+        } else if (this.nome.equals("Kelvin") && medida.getNome().equals("Grau Celsius")) {
             return quantidade - this.valor;
-        } else if (this.nome.equals("Grau Celsius") && conversorMedida.getNome().equals("Fahrenheit")) {
+        } else if (this.nome.equals("Grau Celsius") && medida.getNome().equals("Fahrenheit")) {
             return (quantidade * (9.0 / 5) + 32);
-        } else if (this.nome.equals("Fahrenheit") && conversorMedida.getNome().equals("Grau Celsius")) {
+        } else if (this.nome.equals("Fahrenheit") && medida.getNome().equals("Grau Celsius")) {
             return (quantidade - 32) * (5.0 / 9);
-        } else if (this.nome.equals("Kelvin") && conversorMedida.getNome().equals("Fahrenheit")) {
+        } else if (this.nome.equals("Kelvin") && medida.getNome().equals("Fahrenheit")) {
             return ((quantidade - this.valor) * (9.0 / 5)) + 32;
         } else {
-            return ((quantidade - 32) * (5.0 / 9)) + conversorMedida.getValor();
+            return ((quantidade - 32) * (5.0 / 9)) + medida.getValor();
         }
     }
 }

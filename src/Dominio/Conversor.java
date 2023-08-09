@@ -3,10 +3,22 @@ package Dominio;
 import java.util.Scanner;
 
 public abstract class Conversor {
-
     protected String nomeConversor;
-    public ConversorMedida[] conversorMedidas;
+    public Medida[] medidas;
     public String[] opcoes;
+
+    public Conversor(Medida[] medidas) {
+        this.medidas = medidas;
+        opcoes = new String[medidas.length];
+
+        for (int i = 0; i < medidas.length; i++) {
+            opcoes[i] = medidas[i].getNome();
+        }
+    }
+
+    public String getNomeConversor() {
+        return nomeConversor;
+    }
 
     public void converter(Scanner ler) {
         boolean continuar = true;
@@ -21,13 +33,13 @@ public abstract class Conversor {
             Imprimir.opcoes(opcoes);
 
             int opcao = Imprimir.validarOpcao(ler, opcoes.length);
-            ConversorMedida medida1 = conversorMedidas[opcao - 1];
+            Medida medida1 = medidas[opcao - 1];
 
             System.out.print("Quanto: ");
             double quantidadeASerConvertida = ler.nextDouble();
 
             System.out.printf("Para qual %s: ", nomeConversor);
-            ConversorMedida medida2 = conversorMedidas[Imprimir.validarOpcao(ler, opcoes.length, opcao) - 1];
+            Medida medida2 = medidas[Imprimir.validarOpcao(ler, opcoes.length, opcao) - 1];
 
             double quantidadeResultado = (double) Math.round(medida1.converter(medida2,
                     quantidadeASerConvertida) * 100.0) / 100;
